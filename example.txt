@@ -13,10 +13,16 @@ E1 = [ [ 1, 2, 3],
 res1 = 60.500;
 res2 = 60.;
 res3 = .500;
-res4 = 60.52E2;
+res4 = 60.52E+2;
 str = "Hello world";
 
 if (m==n) {
     if (m >= n)
         print res;
 }
+
+"\"\"aaaaa" "\"" "\\" ""
+
+# Examples of wrong input:
+& ^    \@
+
