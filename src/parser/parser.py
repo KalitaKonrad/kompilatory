@@ -36,10 +36,15 @@ def p_number(p):
 
 
 def p_expression(p):
-    """expression : slice_or_id
+    """expression : '(' expression ')'
+                  | slice_or_id
                   | number
                   | STRING"""
-    p[0] = Expression(position(p), p[1])
+
+    if len(p) == 4:
+        p[0] = Expression(position(p), p[2])
+    else:
+        p[0] = Expression(position(p), p[1])
 
 
 def p_inner_vector(p):
@@ -202,9 +207,9 @@ def p_print(p):
 
 def p_error(p):
     if p:
-        print(f"Syntax error, {position(p)}, LexToken({p.type}, '{p.value}')")
+        raise SyntaxError(f"Syntax error: {position(p)}, LexToken({p.type}, '{p.value}')")
     else:
-        print("Unexpected end of input")
+        raise SyntaxError("Syntax error: unexpected end of input")
 
 
 parser = yacc.yacc(start='program')
