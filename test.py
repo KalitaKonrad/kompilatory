@@ -8,7 +8,7 @@ from pathlib import Path
 def check_parser(parser, scanner, text):
     try:
         ast = parser.parse(text, lexer=scanner.lexer)
-        ast.print_tree()
+        # ast.print_tree()
 
         type_checker = TypeChecker()
         type_checker.visit(ast)
@@ -21,16 +21,19 @@ def check_parser(parser, scanner, text):
         print(error.msg)
 
 
-def test_parser():
+def test_parser(files):
     from src.parser import parser as parser_module
     from src.scanner import scanner
 
     parser = parser_module.parser
-    example_dir = str(Path(__file__).parent) + "\\examples"
+    work_dir = str(Path(__file__).parent)
+    if len(files) == 0:
+        work_dir += "\\examples"
+        files = os.listdir(work_dir)
 
-    for filename in os.listdir(example_dir):
+    for filename in files:
         print(filename)
-        filename = os.path.join(example_dir, filename)
+        filename = os.path.join(work_dir, filename)
 
         file = open(filename, "r")
         text = file.read()
